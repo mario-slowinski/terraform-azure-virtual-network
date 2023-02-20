@@ -4,6 +4,12 @@ variable "separator" {
   default     = "."
 }
 
+variable "space" {
+  type        = string
+  description = "Single character to replace space where required."
+  default     = "_"
+}
+
 variable "name" {
   type        = string
   description = "Resource's name."
