@@ -1,12 +1,7 @@
-azurerm-virtual-network
+azure-virtual-network
 =======================
 
 Terraform [Azure Virtual Network](https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview).
-
-If `var.address_space` is:
-
-* **set** - create resource
-* **not set** - read existing resource data
 
 Required providers
 ------------------
@@ -43,8 +38,8 @@ Examples
 * `main.tf`
 
   ```terraform
-  module "azurerm_virtual_network" {
-    sources = "github.com/mario-slowinski/terraform-azurerm-virtual-network"
+  module "azure-virtual-network" {
+    sources = "github.com/mario-slowinski/terraform-azure-virtual-network"
   }
   ```
 
