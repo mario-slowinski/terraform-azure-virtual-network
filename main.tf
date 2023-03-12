@@ -4,5 +4,5 @@ resource "azurerm_virtual_network" "this" {
   location            = var.location
   address_space       = var.address_space
 
-  tags = coalesce(var.tags, local.zip)
+  tags = coalesce(var.tags, local.tags)
 }

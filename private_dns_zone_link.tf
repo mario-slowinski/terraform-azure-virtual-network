@@ -9,6 +9,6 @@ resource "azurerm_private_dns_zone_virtual_network_link" "many" {
   tags = coalesce(
     var.private_dns_zones[count.index].tags,
     var.tags,
-    local.zip
+    local.tags
   )
 }
