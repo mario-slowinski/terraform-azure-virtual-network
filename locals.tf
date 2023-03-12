@@ -3,7 +3,7 @@ locals {
 
   # must be as separated lists because maps are automatically sorted
   tags = [
-    for key, value in zipmap(var.tags_keys, var.tags_values) : {
+    for key, value in local.zip : {
       key   = key
       value = value
     } if value != ""
