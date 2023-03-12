@@ -1,4 +1,6 @@
 locals {
+  zip = zipmap(var.tags_keys, var.tags_values)
+
   # must be as separated lists because maps are automatically sorted
   tags = [
     for key, value in zipmap(var.tags_keys, var.tags_values) : {
