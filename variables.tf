@@ -33,7 +33,6 @@ variable "tags_keys" {
   description = "List of tags keys."
   default = [
     "environment",
-    "vendor",
   ]
 }
 
@@ -41,7 +40,6 @@ variable "tags_values" {
   type        = list(string)
   description = "List of tags values."
   default = [
-    "",
     "",
   ]
 }
@@ -51,6 +49,5 @@ variable "names_keys" {
   description = "List of tags keys to be used for name composition."
   default = [
     "environment",
-    "vendor",
   ]
 }
