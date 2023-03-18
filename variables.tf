@@ -10,18 +10,6 @@ variable "space" {
   default     = "_"
 }
 
-variable "name" {
-  type        = string
-  description = "Resource's name."
-  default     = ""
-}
-
-variable "location" {
-  type        = string
-  description = "Region to create resource."
-  default     = ""
-}
-
 variable "tags" {
   type        = map(string)
   description = "Map of tags to be used instead of the ones composed automatically."
