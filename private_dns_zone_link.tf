@@ -11,4 +11,7 @@ resource "azurerm_private_dns_zone_virtual_network_link" "many" {
     var.tags,
     local.tags
   )
+  depends_on = [
+    azurerm_virtual_network.this,
+  ]
 }
