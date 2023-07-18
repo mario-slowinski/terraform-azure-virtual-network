@@ -13,7 +13,7 @@ variable "gateway" {
     edge_zone                        = optional(string) # Specifies the Edge Zone within the Azure Region where this Virtual Network Gateway should exist.
     enable_bgp                       = optional(bool)   # If true, BGP (Border Gateway Protocol) will be enabled for this Virtual Network Gateway.
     generation                       = optional(string) # The Generation of the Virtual Network gateway.
-    ip_configuration = list(object({                    # One, two or three ip_configuration blocks.
+    ip_configurations = list(object({                   # One, two or three ip_configuration blocks.
       name                          = optional(string)  # A user-defined name of the IP configuration.
       private_ip_address_allocation = optional(string)  # Defines how the private IP address of the gateways virtual interface is assigned.
       subnet_id                     = string            # The ID of the gateway subnet of a virtual network in which the virtual network gateway will be created.
@@ -27,17 +27,17 @@ variable "gateway" {
     tags                       = optional(map(string))
     type                       = string # The type of the Virtual Network Gateway.
     vpn_client_configuration = optional(object({
-      address_space = string                    # The address space out of which IP addresses for vpn clients will be taken.
-      aad_tenant    = optional(string)          # AzureAD Tenant URL.
-      aad_audience  = optional(string)          # The client id of the Azure VPN application.
-      aad_issuer    = optional(string)          # The STS url for your tenant.
-      root_certificate = optional(list(object({ # One or more root_certificate blocks
-        name             = string               # A user-defined name of the root certificate.
-        public_cert_data = string               # The public certificate of the root certificate authority.
+      address_space = string                     # The address space out of which IP addresses for vpn clients will be taken.
+      aad_tenant    = optional(string)           # AzureAD Tenant URL.
+      aad_audience  = optional(string)           # The client id of the Azure VPN application.
+      aad_issuer    = optional(string)           # The STS url for your tenant.
+      root_certificates = optional(list(object({ # One or more root_certificate blocks
+        name             = string                # A user-defined name of the root certificate.
+        public_cert_data = string                # The public certificate of the root certificate authority.
       })))
-      revoked_certificate = optional(object({
-        name       = string # Specifies the name of the certificate resource.
-        thumbprint = string # Specifies the public data of the certificate.
+      revoked_certificates = optional(object({ # One or more revoked_certificate blocks
+        name       = string                    # Specifies the name of the certificate resource.
+        thumbprint = string                    # Specifies the public data of the certificate.
       }))
       radius_server_address = optional(string)       # The address of the Radius server.
       radius_server_secret  = optional(string)       # The secret used by the Radius server.
@@ -48,9 +48,9 @@ variable "gateway" {
   })
   description = "Manages a Virtual Network Gateway to establish secure, cross-premises connectivity."
   default = {
-    ip_configuration = [{ subnet_id = null, public_ip_address_id = null }]
-    name             = null
-    sku              = null
-    type             = "Vpn"
+    ip_configurations = [{ subnet_id = null, public_ip_address_id = null }]
+    name              = null
+    sku               = null
+    type              = "Vpn"
   }
 }
