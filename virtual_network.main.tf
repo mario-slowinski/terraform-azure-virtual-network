@@ -9,13 +9,13 @@ resource "azurerm_virtual_network" "this" {
   flow_timeout_in_minutes = var.flow_timeout_in_minutes
 
   dynamic "ddos_protection_plan" {
-    for_each = length(var.ddos_protection_plan.id) > 0 ? toset([1]) : toset([])
+    for_each = var.ddos_protection_plan.id != null ? toset([var.ddos_protection_plan]) : toset([])
 
     content {
-      id     = var.ddos_protection_plan.id
-      enable = var.ddos_protection_plan.enable
+      id     = ddos_protection_plan.value.id
+      enable = ddos_protection_plan.value.enable
     }
   }
 
-  tags = coalesce(var.tags, local.tags)
+  tags = merge(local.tags, var.tags)
 }
