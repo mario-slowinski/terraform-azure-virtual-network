@@ -19,7 +19,6 @@ variable "gateway" {
     ip_configurations = list(object({                   # One, two or three ip_configuration blocks.
       name                          = optional(string)  # A user-defined name of the IP configuration.
       private_ip_address_allocation = optional(string)  # Defines how the private IP address of the gateways virtual interface is assigned.
-      subnet_id                     = string            # The ID of the gateway subnet of a virtual network in which the virtual network gateway will be created.
       public_ip_address_id          = string            # The ID of the public IP address to associate with the Virtual Network Gateway.
     }))
     location                   = optional(string) # The location/region where the Virtual Network Gateway is located. Use virtual_network's if not defined
