@@ -10,9 +10,21 @@ resource "azurerm_virtual_network_gateway" "name" {
   dynamic "bgp_settings" {
     for_each = each.value.bgp_settings != null ? toset([each.value.bgp_settings]) : toset([])
     content {
-      asn               = bgp_settings.value.asn
-      peering_addresses = bgp_settings.value.peering_addresses
-      peer_weight       = bgp_settings.value.peer_weight
+      asn = bgp_settings.value.asn
+
+      dynamic "peering_addresses" {
+        for_each = {
+          for peering_address in bgp_settings.value.peering_addresses :
+          peering_address.ip_configuration_name => peering_address
+          if peering_address.ip_configuration_name != null
+        }
+        content {
+          ip_configuration_name = peering_addresses.value.ip_configuration_name
+          apipa_addresses       = peering_addresses.value.apipa_addresses
+        }
+      }
+
+      peer_weight = bgp_settings.value.peer_weight
     }
   }
 

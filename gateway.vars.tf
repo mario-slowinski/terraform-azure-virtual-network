@@ -2,9 +2,12 @@ variable "gateway" {
   type = object({
     active_active = optional(bool) #  If true, an active-active Virtual Network Gateway will be created.
     bgp_settings = optional(object({
-      asn               = optional(string)       # The Autonomous System Number (ASN) to use as part of the BGP.
-      peering_addresses = optional(list(string)) # A list of peering_addresses as defined below.
-      peer_weight       = optional(number)       # The weight added to routes which have been learned through BGP peering.
+      asn = optional(string)                           # The Autonomous System Number (ASN) to use as part of the BGP.
+      peering_addresses = optional(list(object({       # A list of peering_addresses as defined below.
+        ip_configuration_name = optional(string)       # The name of the IP configuration of this Virtual Network Gateway.
+        apipa_addresses       = optional(list(string)) # A list of Azure custom APIPA addresses assigned to the BGP peer of the Virtual Network Gateway.
+      })))
+      peer_weight = optional(number) # The weight added to routes which have been learned through BGP peering.
     }))
     custom_route = optional(object({
       address_prefixes = optional(list(string)) # A list of address blocks reserved for this virtual network in CIDR notation as defined below.
