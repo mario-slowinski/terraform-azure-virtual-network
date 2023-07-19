@@ -57,7 +57,7 @@ resource "azurerm_virtual_network_gateway" "name" {
   location                   = coalesce(each.value.location, var.location)
   name                       = each.value.name
   private_ip_address_enabled = each.value.private_ip_address_enabled
-  resource_group_name        = each.value.resource_group_name
+  resource_group_name        = coalesce(each.value.resource_group_name, var.resource_group_name)
   sku                        = each.value.sku
   type                       = each.value.type
   vpn_type                   = each.value.vpn_type
