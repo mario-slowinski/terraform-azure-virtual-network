@@ -40,7 +40,7 @@ resource "azurerm_virtual_network_gateway" "name" {
   enable_bgp                       = each.value.enable_bgp
   generation                       = each.value.generation
 
-  dynamic "ip_configurations" {
+  dynamic "ip_configuration" {
     for_each = {
       for ip_configuration in each.value.ip_configurations :
       ip_configuration.subnet_id => ip_configuration
