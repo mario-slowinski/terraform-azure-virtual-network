@@ -29,7 +29,7 @@ variable "gateway" {
     tags                       = optional(map(string))
     type                       = string # The type of the Virtual Network Gateway.
     vpn_client_configuration = optional(object({
-      address_space = string                     # The address space out of which IP addresses for vpn clients will be taken.
+      address_space = list(string)               # The address space out of which IP addresses for vpn clients will be taken.
       aad_tenant    = optional(string)           # AzureAD Tenant URL.
       aad_audience  = optional(string)           # The client id of the Azure VPN application.
       aad_issuer    = optional(string)           # The STS url for your tenant.
@@ -37,13 +37,13 @@ variable "gateway" {
         name             = string                # A user-defined name of the root certificate.
         public_cert_data = string                # The public certificate of the root certificate authority.
       })))
-      revoked_certificates = optional(object({ # One or more revoked_certificate blocks
-        name       = string                    # Specifies the name of the certificate resource.
-        thumbprint = string                    # Specifies the public data of the certificate.
-      }))
+      revoked_certificates = optional(list(object({ # One or more revoked_certificate blocks
+        name       = string                         # Specifies the name of the certificate resource.
+        thumbprint = string                         # Specifies the public data of the certificate.
+      })))
       radius_server_address = optional(string)       # The address of the Radius server.
       radius_server_secret  = optional(string)       # The secret used by the Radius server.
-      vpn_client_protocols  = optional(string)       # List of the protocols supported by the vpn client.
+      vpn_client_protocols  = optional(list(string)) # List of the protocols supported by the vpn client.
       vpn_auth_types        = optional(list(string)) # List of the vpn authentication types for the virtual network gateway.
     }))
     vpn_type = optional(string) # The routing type of the Virtual Network Gateway.
