@@ -101,5 +101,9 @@ resource "azurerm_virtual_network_gateway" "name" {
     }
   }
 
-  tags = merge(local.tags, var.tags, each.value.gateway.tags)
+  tags = merge(local.tags, var.tags, each.value.tags)
+
+  depends_on = [
+    azurerm_subnet.name,
+  ]
 }
