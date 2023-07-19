@@ -43,8 +43,8 @@ resource "azurerm_virtual_network_gateway" "name" {
   dynamic "ip_configuration" {
     for_each = {
       for ip_configuration in each.value.ip_configurations :
-      ip_configuration.subnet_id => ip_configuration
-      if ip_configuration.subnet_id != null
+      coalesce(ip_configuration.name, "vnetGatewayConfig") => ip_configuration
+      if ip_configuration.public_ip_address_id != null
     }
     content {
       name                          = ip_configurations.value.name
