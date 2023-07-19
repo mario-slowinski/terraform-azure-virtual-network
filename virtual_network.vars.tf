@@ -29,8 +29,8 @@ variable "ddos_protection_plan" {
   })
   description = "Optional block."
   default = {
-    id     = ""
-    enable = false
+    id     = null
+    enable = null
   }
 }
 
