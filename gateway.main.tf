@@ -89,8 +89,8 @@ resource "azurerm_virtual_network_gateway" "name" {
           if revoked_certificate.name != null
         }
         content {
-          name       = root_certificate.value.name
-          thumbprint = root_certificate.value.thumbprint
+          name       = revoked_certificate.value.name
+          thumbprint = revoked_certificate.value.thumbprint
         }
       }
 
