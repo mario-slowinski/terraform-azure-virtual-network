@@ -1,6 +1,6 @@
 resource "azurerm_virtual_network_gateway" "name" {
   for_each = {
-    for name in [var.gateway] :
+    for name in [var.gateway.name] :
     name => var.gateway
     if name != null
   }
