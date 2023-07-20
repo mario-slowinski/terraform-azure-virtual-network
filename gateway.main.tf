@@ -8,13 +8,13 @@ resource "azurerm_virtual_network_gateway" "name" {
   active_active = each.value.active_active
 
   dynamic "bgp_settings" {
-    for_each = each.value.bgp_settings != null ? toset([each.value.bgp_settings]) : toset([])
+    for_each = { for bgp_setting in [each.value.bgp_settings] : bgp_setting.asn => bgp_setting if bgp_setting != null }
     content {
       asn = bgp_settings.value.asn
 
       dynamic "peering_addresses" {
         for_each = {
-          for peering_address in bgp_settings.value.peering_addresses :
+          for peering_address in coalesce(bgp_settings.value.peering_addresses, []) :
           peering_address.ip_configuration_name => peering_address
           if peering_address.ip_configuration_name != null
         }
@@ -29,7 +29,7 @@ resource "azurerm_virtual_network_gateway" "name" {
   }
 
   dynamic "custom_route" {
-    for_each = each.value.custom_route != null ? toset([each.value.custom_route]) : toset([])
+    for_each = { for index, custom_route in [each.value.custom_route] : index => custom_route if custom_route != null }
     content {
       address_prefixes = custom_route.value.address_prefixes
     }
@@ -63,7 +63,7 @@ resource "azurerm_virtual_network_gateway" "name" {
   vpn_type                   = each.value.vpn_type
 
   dynamic "vpn_client_configuration" {
-    for_each = each.value.vpn_client_configuration != null ? toset([each.value.vpn_client_configuration]) : toset([])
+    for_each = { for index, vpn_configuration in [each.value.vpn_client_configuration] : index => vpn_configuration }
     content {
       address_space = vpn_client_configuration.value.address_space
       aad_tenant    = vpn_client_configuration.value.aad_tenant
@@ -72,9 +72,8 @@ resource "azurerm_virtual_network_gateway" "name" {
 
       dynamic "root_certificate" {
         for_each = {
-          for root_certificate in vpn_client_configuration.value.root_certificates :
-          root_certificate.name => root_certificate
-          if root_certificate.name != null
+          for root_certificate in coalesce(vpn_client_configuration.value.root_certificates, []) :
+          root_certificate.name => root_certificate.public_cert_data
         }
         content {
           name             = root_certificate.value.name
@@ -84,9 +83,8 @@ resource "azurerm_virtual_network_gateway" "name" {
 
       dynamic "revoked_certificate" {
         for_each = {
-          for revoked_certificate in vpn_client_configuration.value.revoked_certificates :
+          for revoked_certificate in coalesce(vpn_client_configuration.value.revoked_certificates, []) :
           revoked_certificate.name => revoked_certificate
-          if revoked_certificate.name != null
         }
         content {
           name       = revoked_certificate.value.name
