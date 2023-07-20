@@ -89,11 +89,11 @@ resource "azurerm_virtual_network_gateway" "name" {
       dynamic "revoked_certificate" {
         for_each = {
           for revoked_certificate in coalesce(vpn_client_configuration.value.revoked_certificates, []) :
-          revoked_certificate.name => revoked_certificate
+          revoked_certificate.name => revoked_certificate.thumbprint
         }
         content {
-          name       = revoked_certificate.value.name
-          thumbprint = revoked_certificate.value.thumbprint
+          name       = revoked_certificate.key
+          thumbprint = revoked_certificate.value
         }
       }
 
