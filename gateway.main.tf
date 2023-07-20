@@ -76,8 +76,13 @@ resource "azurerm_virtual_network_gateway" "name" {
           root_certificate.name => root_certificate.public_cert_data
         }
         content {
-          name             = root_certificate.value.name
-          public_cert_data = root_certificate.value.public_cert_data
+          name = root_certificate.key
+          public_cert_data = trimspace(
+            regex(
+              "(?s)(-----BEGIN CERTIFICATE-----)(.*)(-----END CERTIFICATE-----)",
+              root_certificate.value
+            )[1]
+          )
         }
       }
 
