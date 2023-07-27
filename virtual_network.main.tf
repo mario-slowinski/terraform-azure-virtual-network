@@ -1,5 +1,5 @@
 resource "azurerm_virtual_network" "this" {
-  name                = coalesce(var.name, local.name)
+  name                = local.name
   resource_group_name = coalesce(var.resource_group_name, local.name)
   address_space       = var.address_space
   location            = var.location

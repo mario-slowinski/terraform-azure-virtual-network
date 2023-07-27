@@ -1,7 +1,7 @@
 resource "azurerm_virtual_network_peering" "remote" {
   for_each = {
     for peering in var.peerings :
-    coalesce(peering.remote.name, var.name, local.name) => peering
+    coalesce(peering.remote.name, local.name) => peering
     if peering.remote.virtual_network_name != null
   }
 
