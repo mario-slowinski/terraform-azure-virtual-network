@@ -19,17 +19,21 @@ resource "azurerm_virtual_network_peering" "remote" {
 resource "azurerm_virtual_network_peering" "local" {
   for_each = {
     for peering in var.peerings :
-    try(peering.local.name, peering.remote.virtual_network_name) => peering
+    coalesce(peering.local.name, peering.remote.virtual_network_name) => peering
     if peering.remote.virtual_network_name != null
   }
 
   name                         = each.key
   virtual_network_name         = azurerm_virtual_network.this.name
   remote_virtual_network_id    = data.azurerm_virtual_network.remote[each.key].id
-  resource_group_name          = try(each.value.local.resource_group_name, var.resource_group_name)
+  resource_group_name          = coalesce(each.value.local.resource_group_name, var.resource_group_name)
   allow_virtual_network_access = try(each.value.local.allow_virtual_network_access, null)
   allow_forwarded_traffic      = try(each.value.local.allow_forwarded_traffic, null)
   allow_gateway_transit        = try(each.value.local.allow_gateway_transit, null)
   use_remote_gateways          = try(each.value.local.use_remote_gateways, null)
   triggers                     = try(each.value.local.triggers, null)
+
+  depends_on = [
+    azurerm_virtual_network_peering.remote,
+  ]
 }
