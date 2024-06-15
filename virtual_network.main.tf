@@ -18,5 +18,5 @@ resource "azurerm_virtual_network" "name" {
     }
   }
 
-  tags = merge(local.tags, var.tags)
+  tags = var.tags
 }
