@@ -1,7 +1,7 @@
 resource "azurerm_virtual_network_peering" "remote" {
   for_each = {
     for peering in var.peerings :
-    coalesce(peering.remote.name, local.name) => peering
+    coalesce(peering.remote.name, var.name) => peering
     if peering.remote.virtual_network_name != null
   }
 
@@ -24,7 +24,7 @@ resource "azurerm_virtual_network_peering" "local" {
   }
 
   name                         = each.key
-  virtual_network_name         = azurerm_virtual_network.this.name
+  virtual_network_name         = var.name
   remote_virtual_network_id    = data.azurerm_virtual_network.remote[each.key].id
   resource_group_name          = coalesce(each.value.local.resource_group_name, var.resource_group_name)
   allow_virtual_network_access = try(each.value.local.allow_virtual_network_access, null)

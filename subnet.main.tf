@@ -22,10 +22,10 @@ resource "azurerm_subnet" "name" {
     }
   }
 
-  name                                          = coalesce(each.value.name, local.name)
+  name                                          = each.value.name
   private_endpoint_network_policies_enabled     = each.value.private_endpoint_network_policies_enabled
   private_link_service_network_policies_enabled = each.value.private_link_service_network_policies_enabled
-  resource_group_name                           = coalesce(each.value.resource_group_name, var.resource_group_name, local.name)
+  resource_group_name                           = coalesce(each.value.resource_group_name, var.resource_group_name)
   service_endpoints                             = each.value.service_endpoints
   service_endpoint_policy_ids                   = each.value.service_endpoint_policy_ids
   virtual_network_name                          = local.virtual_network.name
