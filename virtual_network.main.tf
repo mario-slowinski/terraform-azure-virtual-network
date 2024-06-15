@@ -1,9 +1,10 @@
-resource "azurerm_virtual_network" "this" {
-  name                = local.name
-  resource_group_name = coalesce(var.resource_group_name, local.name)
-  address_space       = var.address_space
-  location            = var.location
+resource "azurerm_virtual_network" "name" {
+  for_each = length(var.address_space) > 0 ? toset([var.name]) : toset([])
 
+  name                    = var.name
+  resource_group_name     = var.resource_group_name
+  address_space           = var.address_space
+  location                = var.location
   dns_servers             = var.dns_servers
   edge_zone               = var.edge_zone
   flow_timeout_in_minutes = var.flow_timeout_in_minutes
