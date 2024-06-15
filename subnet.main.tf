@@ -28,9 +28,5 @@ resource "azurerm_subnet" "name" {
   resource_group_name                           = coalesce(each.value.resource_group_name, var.resource_group_name, local.name)
   service_endpoints                             = each.value.service_endpoints
   service_endpoint_policy_ids                   = each.value.service_endpoint_policy_ids
-  virtual_network_name                          = local.name
-
-  depends_on = [
-    azurerm_virtual_network.this,
-  ]
+  virtual_network_name                          = local.virtual_network.name
 }

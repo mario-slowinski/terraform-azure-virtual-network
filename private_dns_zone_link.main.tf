@@ -8,7 +8,7 @@ resource "azurerm_private_dns_zone_virtual_network_link" "zone" {
   name                  = coalesce(each.value.name, local.name)
   private_dns_zone_name = each.value.private_dns_zone_name
   resource_group_name   = coalesce(each.value.resource_group_name, var.resource_group_name)
-  virtual_network_id    = azurerm_virtual_network.this.id
+  virtual_network_id    = local.virtual_network.id
   registration_enabled  = each.value.registration_enabled
   tags                  = merge(local.tags, var.tags, each.value.tags)
 

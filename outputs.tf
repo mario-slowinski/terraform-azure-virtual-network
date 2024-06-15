@@ -1,12 +1,12 @@
 output "id" {
   description = "The virtual NetworkConfiguration ID."
-  value       = azurerm_virtual_network.this.id
+  value       = local.virtual_network.id
   sensitive   = false
 }
 
 output "data" {
   description = "Virtual network data."
-  value       = azurerm_virtual_network.this
+  value       = local.virtual_network
   sensitive   = false
 }
 

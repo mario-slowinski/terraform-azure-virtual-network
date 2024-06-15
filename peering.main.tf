@@ -7,7 +7,7 @@ resource "azurerm_virtual_network_peering" "remote" {
 
   name                         = each.key
   virtual_network_name         = each.value.remote.virtual_network_name
-  remote_virtual_network_id    = azurerm_virtual_network.this.id
+  remote_virtual_network_id    = local.virtual_network.id
   resource_group_name          = each.value.remote.resource_group_name
   allow_virtual_network_access = each.value.remote.allow_virtual_network_access
   allow_forwarded_traffic      = each.value.remote.allow_forwarded_traffic
