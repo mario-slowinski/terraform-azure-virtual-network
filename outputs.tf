@@ -24,3 +24,12 @@ output "local_network_gateways" {
   }
   sensitive = false
 }
+
+output "gateway_connections" {
+  description = "Virtual Network Gateway Connections id."
+  value = {
+    for name, gateway_connection in azurerm_virtual_network_gateway_connection.name :
+    name => gateway_connection.id
+  }
+  sensitive = false
+}
