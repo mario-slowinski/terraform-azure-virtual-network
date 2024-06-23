@@ -1,5 +1,5 @@
-variable "gateway" {
-  type = object({
+variable "gateways" {
+  type = list(object({
     active_active = optional(bool) #  If true, an active-active Virtual Network Gateway will be created.
     bgp_settings = optional(object({
       asn = optional(string)                           # The Autonomous System Number (ASN) to use as part of the BGP.
@@ -47,12 +47,14 @@ variable "gateway" {
       vpn_auth_types        = optional(list(string)) # List of the vpn authentication types for the virtual network gateway.
     }))
     vpn_type = optional(string) # The routing type of the Virtual Network Gateway.
-  })
+  }))
   description = "Manages a Virtual Network Gateway to establish secure, cross-premises connectivity."
-  default = {
-    ip_configurations = [{ subnet_id = null, public_ip_address_id = null }]
-    name              = null
-    sku               = null
-    type              = "Vpn"
-  }
+  default = [
+    {
+      ip_configurations = [{ subnet_id = null, public_ip_address_id = null }]
+      name              = null
+      sku               = null
+      type              = "Vpn"
+    }
+  ]
 }
