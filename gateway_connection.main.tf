@@ -9,10 +9,10 @@ resource "azurerm_virtual_network_gateway_connection" "name" {
   resource_group_name = coalesce(each.value.resource_group_name, var.resource_group_name)
   location            = coalesce(each.value.location, var.location)
   type                = each.value.type
-  virtual_network_gateway_id = startswith(each.value.virtual_network_gateway_id, "/subscriptions") ? (
-    each.value.virtual_network_gateway_id
+  virtual_network_gateway_id = startswith(each.value.virtual_network_gateway, "/subscriptions") ? (
+    each.value.virtual_network_gateway
     ) : (
-    azurerm_virtual_network_gateway.name[each.value.virtual_network_gateway_id].id
+    azurerm_virtual_network_gateway.name[each.value.virtual_network_gateway].id
   )
   authorization_key               = each.value.authorization_key
   dpd_timeout_seconds             = each.value.dpd_timeout_seconds

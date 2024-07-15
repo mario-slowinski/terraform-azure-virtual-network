@@ -4,7 +4,7 @@ variable "gateway_connections" {
     resource_group_name             = optional(string) # The name of the resource group in which to create the connection. Use virtual_network's if not defined.
     location                        = optional(string) # The location/region where the connection is located. Use virtual_network's if not defined.
     type                            = string           # The type of connection. Valid options are IPsec (Site-to-Site), ExpressRoute (ExpressRoute), and Vnet2Vnet (VNet-to-VNet).
-    virtual_network_gateway_id      = optional(string) # The ID of the Virtual Network Gateway in which the connection will be created. Use the one from module if set to null.
+    virtual_network_gateway         = optional(string) # The ID or name of the Virtual Network Gateway in which the connection will be created. Use the one from module if set to null.
     authorization_key               = optional(string) # The authorization key associated with the Express Route Circuit. Changing this forces a new resource to be created.
     dpd_timeout_seconds             = optional(string) # The dead peer detection timeout of this connection in seconds. Changing this forces a new resource to be created.
     express_route_circuit_id        = optional(string) # The ID of the Express Route Circuit when creating an ExpressRoute connection (i.e. when type is ExpressRoute). The Express Route Circuit can be in the same or in a different subscription. Changing this forces a new resource to be created.
