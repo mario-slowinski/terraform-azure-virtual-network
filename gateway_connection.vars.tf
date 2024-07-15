@@ -35,7 +35,7 @@ variable "gateway_connections" {
       sa_datasize      = optional(string) # The IPSec SA payload size in KB. Must be at least 1024 KB. Defaults to 102400000 KB.
       sa_lifetime      = optional(string) # The IPSec SA lifetime in seconds. Must be at least 300 seconds. Defaults to 27000 seconds.
     }))
-    traffic_selector_policy = optional(list(object({
+    traffic_selector_policies = optional(list(object({
       local_address_cidrs  = list(string) # List of local CIDRs.
       remote_address_cidrs = list(string) # List of remote CIDRs.
     })))

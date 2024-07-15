@@ -59,7 +59,7 @@ resource "azurerm_virtual_network_gateway_connection" "name" {
   }
 
   dynamic "traffic_selector_policy" {
-    for_each = each.value.traffic_selector_policy != null ? toset(each.value.traffic_selector_policy) : toset([])
+    for_each = each.value.traffic_selector_policies != null ? toset(each.value.traffic_selector_policies) : toset([])
     content {
       local_address_cidrs  = traffic_selector_policy.value.local_address_cidrs
       remote_address_cidrs = traffic_selector_policy.value.remote_address_cidrs
