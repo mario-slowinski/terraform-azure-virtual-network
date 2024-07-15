@@ -19,10 +19,10 @@ resource "azurerm_virtual_network_gateway_connection" "name" {
   express_route_circuit_id        = each.value.express_route_circuit_id
   peer_virtual_network_gateway_id = each.value.peer_virtual_network_gateway_id
   local_azure_ip_address_enabled  = each.value.local_azure_ip_address_enabled
-  local_network_gateway_id = startswith(each.value.local_network_gateway_id, "/subscriptions") ? (
-    each.value.local_network_gateway_id
+  local_network_gateway_id = startswith(each.value.local_network_gateway, "/subscriptions") ? (
+    each.value.local_network_gateway
     ) : (
-    azurerm_local_network_gateway.name[each.value.local_network_gateway_id].id
+    azurerm_local_network_gateway.name[each.value.local_network_gateway].id
   )
   routing_weight      = each.value.routing_weight
   shared_key          = each.value.shared_key

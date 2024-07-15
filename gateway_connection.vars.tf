@@ -10,7 +10,7 @@ variable "gateway_connections" {
     express_route_circuit_id        = optional(string) # The ID of the Express Route Circuit when creating an ExpressRoute connection (i.e. when type is ExpressRoute). The Express Route Circuit can be in the same or in a different subscription. Changing this forces a new resource to be created.
     peer_virtual_network_gateway_id = optional(string) # The ID of the peer virtual network gateway when creating a VNet-to-VNet connection (i.e. when type is Vnet2Vnet). The peer Virtual Network Gateway can be in the same or in a different subscription. Changing this forces a new resource to be created.
     local_azure_ip_address_enabled  = optional(bool)   # Use private local Azure IP for the connection. Changing this forces a new resource to be created.
-    local_network_gateway_id        = optional(string) # The ID of the local network gateway when creating Site-to-Site connection (i.e. when type is IPsec).
+    local_network_gateway           = optional(string) # The ID or name of the local network gateway when creating Site-to-Site connection (i.e. when type is IPsec).
     routing_weight                  = optional(number) # The routing weight. Defaults to 10.
     shared_key                      = optional(string) # The shared IPSec key. A key could be provided if a Site-to-Site, VNet-to-VNet or ExpressRoute connection is created.
     connection_mode                 = optional(string) # Connection mode to use. Possible values are Default, InitiatorOnly and ResponderOnly. Defaults to Default. Changing this value will force a resource to be created.
