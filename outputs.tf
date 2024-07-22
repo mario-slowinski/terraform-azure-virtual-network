@@ -33,3 +33,12 @@ output "gateway_connections" {
   }
   sensitive = false
 }
+
+output "gateway_nat_rules" {
+  description = "Virtual Network Gateway NAT Rules id."
+  value = {
+    for name, nat_rule in azurerm_virtual_network_gateway_nat_rule.name :
+    name => nat_rule.id
+  }
+  sensitive = false
+}
